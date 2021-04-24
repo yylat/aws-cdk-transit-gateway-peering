@@ -9,16 +9,19 @@ import { TgwRouteStack } from '../lib/tgw-route-stack';
 const app = new cdk.App();
 
 const usEastEnv = { region: 'us-east-1' }
+const usEastCidr = '172.16.0.0/24'
+
 const euWestEnv = { region: 'eu-west-2' }
+const euWestCidr = '172.16.1.0/24'
 
 const usEastNetwork = new NetworkStack(app, 'network-us-east-1', {
   env: usEastEnv,
-  cidr: '172.16.0.0/24',
+  cidr: usEastCidr,
   amazonSideAsn: 64512
 })
 const euWestNetwork = new NetworkStack(app, 'network-eu-west-2', {
   env: euWestEnv,
-  cidr: '172.16.1.0/24',
+  cidr: euWestCidr,
   amazonSideAsn: 64513
 })
 
@@ -31,25 +34,25 @@ tgwPeering.node.addDependency(euWestNetwork)
 
 const usEastTgwRoute = new TgwRouteStack(app, 'tgw-route-us-east-1', {
   env: usEastEnv,
-  destinationCidrBlock: '172.16.1.0/24',
+  destinationCidrBlock: euWestCidr,
   transitGatewayId: usEastNetwork.transitGateway.ref,
 })
 usEastTgwRoute.node.addDependency(tgwPeering)
 const euWestTgwRoute = new TgwRouteStack(app, 'tgw-route-eu-west-2', {
   env: euWestEnv,
-  destinationCidrBlock: '172.16.1.0/24',
+  destinationCidrBlock: usEastCidr,
   transitGatewayId: euWestNetwork.transitGateway.ref,
 })
 euWestTgwRoute.node.addDependency(tgwPeering)
 
-
+const cidrIpToAllowPingFrom = '172.16.0.0/16'
 new InstanceStack(app, 'instance-us-east-1', {
   env: usEastEnv,
   vpc: usEastNetwork.vpc,
-  cidrIpToAllowPingFrom: '172.16.0.0/16'
+  cidrIpToAllowPingFrom
 })
 new InstanceStack(app, 'instance-eu-west-2', {
   env: euWestEnv,
   vpc: euWestNetwork.vpc,
-  cidrIpToAllowPingFrom: '172.16.0.0/16'
+  cidrIpToAllowPingFrom
 })
