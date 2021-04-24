@@ -1,5 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
+import * as ssm from '@aws-cdk/aws-ssm';
 
 export interface NetworkStackProps extends cdk.StackProps {
     cidr: string
@@ -46,5 +47,10 @@ export class NetworkStack extends cdk.Stack {
                 destinationCidrBlock: '0.0.0.0/0',
                 transitGatewayId: this.transitGateway.ref
             }))
+
+        new ssm.StringParameter(this, 'transit-gateway-id-parameter', {
+            parameterName: '/network/transit-gateway/id',
+            stringValue: this.transitGateway.ref
+        })
     }
 }
