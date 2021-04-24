@@ -2,7 +2,7 @@
   "name": "aws-cdk-transit-gateway-peering",
   "version": "0.1.0",
   "bin": {
-    "aws-cdk-transit-gateway-peering": "bin/aws-cdk-transit-gateway-peering.js"
+    "aws-cdk-transit-gateway-peering": "bin/stacks.ts"
   },
   "scripts": {
     "build": "tsc",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@aws-cdk/core": "1.100.0",
+    "@aws-cdk/aws-ec2": "1.100.0",
     "source-map-support": "^0.5.16"
   }
 }
