@@ -15,5 +15,4 @@ test('network stack', () => {
     expectCDK(synthStack).to(haveResourceLike('AWS::EC2::Subnet'))
     expectCDK(synthStack).to(haveResourceLike('AWS::EC2::TransitGateway'))
     expectCDK(synthStack).to(haveResourceLike('AWS::EC2::TransitGatewayAttachment'))
-    expectCDK(synthStack).to(haveResourceLike('AWS::SSM::Parameter'))
 });

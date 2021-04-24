@@ -1,6 +1,5 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import * as ssm from '@aws-cdk/aws-ssm';
 
 export interface NetworkStackProps extends cdk.StackProps {
     cidr: string
@@ -32,7 +31,8 @@ export class NetworkStack extends cdk.Stack {
             amazonSideAsn: props.amazonSideAsn,
             autoAcceptSharedAttachments: 'enable',
             defaultRouteTableAssociation: 'enable',
-            defaultRouteTablePropagation: 'enable'
+            defaultRouteTablePropagation: 'enable',
+            tags: [{ key: 'type', value: 'multiregion-network' }]
         })
 
         this.transitGatewayAttachment = new ec2.CfnTransitGatewayAttachment(this, 'transit-gateway-attachment', {
@@ -48,11 +48,6 @@ export class NetworkStack extends cdk.Stack {
                 transitGatewayId: this.transitGateway.ref
             })
             route.node.addDependency(this.transitGatewayAttachment)
-        })
-
-        new ssm.StringParameter(this, 'transit-gateway-id-parameter', {
-            parameterName: '/network/transit-gateway/id',
-            stringValue: this.transitGateway.ref
         })
     }
 }

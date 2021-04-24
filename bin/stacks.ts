@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { NetworkStack } from '../lib/network-stack';
 import { InstanceStack } from '../lib/instance-stack';
+import { TgwPeeringStack } from '../lib/tgw-peering-stack';
 
 const app = new cdk.App();
 
@@ -30,3 +31,10 @@ const euWestInstance = new InstanceStack(app, 'instance-eu-west-2', {
   vpc: euWestNetwork.vpc,
   cidrIpToAllowPingFrom: '172.16.0.0/16'
 })
+
+const tgwPeering = new TgwPeeringStack(app, 'tgw-peering', {
+  env: usEastEnv,
+  transitGatewayId: usEastNetwork.transitGateway.ref,
+  peerRegion: 'eu-west-2'
+})
+tgwPeering.node.addDependency(euWestNetwork)
