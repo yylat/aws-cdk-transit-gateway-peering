@@ -1,5 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
+import * as iam from '@aws-cdk/aws-iam';
 
 export interface InstanceStackProps extends cdk.StackProps {
     vpc: ec2.IVpc
@@ -13,6 +14,11 @@ export class InstanceStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props: InstanceStackProps) {
         super(scope, id, props);
 
+        const role = new iam.Role(this, 'role', {
+            assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
+            managedPolicies: [iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMManagedInstanceCore')]
+        })
+
         const securityGroup = new ec2.SecurityGroup(this, 'security-group', {
             vpc: props.vpc
         })
@@ -24,6 +30,7 @@ export class InstanceStack extends cdk.Stack {
             machineImage: ec2.MachineImage.latestAmazonLinux({
                 generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2
             }),
+            role,
             securityGroup
         })
     }

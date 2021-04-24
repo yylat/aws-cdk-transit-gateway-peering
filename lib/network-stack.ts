@@ -49,5 +49,17 @@ export class NetworkStack extends cdk.Stack {
             })
             route.node.addDependency(this.transitGatewayAttachment)
         })
+
+        const stack = cdk.Stack.of(this);
+        [
+            { id: 'ssm', service: `com.amazonaws.${stack.region}.ssm` },
+            { id: 'ec2-messages', service: `com.amazonaws.${stack.region}.ec2messages` },
+            { id: 'ssm-messages', service: `com.amazonaws.${stack.region}.ssmmessages` },
+        ].forEach(it =>
+            new ec2.InterfaceVpcEndpoint(this, it.id, {
+                service: new ec2.InterfaceVpcEndpointService(it.service),
+                privateDnsEnabled: true,
+                vpc: this.vpc
+            }))
     }
 }

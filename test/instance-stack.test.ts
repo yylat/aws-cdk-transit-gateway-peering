@@ -13,6 +13,7 @@ test('network stack', () => {
     const synthStack = SynthUtils.toCloudFormation(stack)
 
     expectCDK(synthStack).to(haveResourceLike('AWS::EC2::Instance'))
+    expectCDK(synthStack).to(haveResourceLike('AWS::IAM::Role'))
     expectCDK(synthStack).to(haveResourceLike('AWS::EC2::SecurityGroup'))
 });
 
