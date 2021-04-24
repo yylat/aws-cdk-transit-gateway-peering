@@ -41,12 +41,14 @@ export class NetworkStack extends cdk.Stack {
             subnetIds: this.vpc.isolatedSubnets.map(subnet => subnet.subnetId)
         })
 
-        this.vpc.isolatedSubnets.forEach((subnet, index) =>
-            new ec2.CfnRoute(this, `subnet-tgw-route-${index}`, {
+        this.vpc.isolatedSubnets.forEach((subnet, index) => {
+            const route = new ec2.CfnRoute(this, `subnet-tgw-route-${index}`, {
                 routeTableId: subnet.routeTable.routeTableId,
                 destinationCidrBlock: '0.0.0.0/0',
                 transitGatewayId: this.transitGateway.ref
-            }))
+            })
+            route.node.addDependency(this.transitGatewayAttachment)
+        })
 
         new ssm.StringParameter(this, 'transit-gateway-id-parameter', {
             parameterName: '/network/transit-gateway/id',
