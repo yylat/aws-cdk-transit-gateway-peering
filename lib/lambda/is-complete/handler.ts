@@ -85,7 +85,7 @@ async function acceptTgwPeering(tgwAttachmentId: string, accepterRegion?: string
     } catch (err) {
         if ('IncorrectState' === (err as aws.AWSError).code) {
             console.log(`accept action has been done already`)
-        }else{
+        } else {
             throw err
         }
     }
