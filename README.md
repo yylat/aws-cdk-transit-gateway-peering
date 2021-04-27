@@ -1,6 +1,6 @@
 # Transit Gateway Inter-Region Peering via AWS CDK
 
-![build status](https://github.com/yylat/aws-cdk-transit-gateway-peering/workflows/node%20build/badge.svg)
+![build status](https://github.com/yylat/aws-cdk-transit-gateway-peering/workflows/build/badge.svg)
 
 This project shows how to setup Inter-Region Transit Gateway peering via AWS CDK and custom resources.
 
