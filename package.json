@@ -14,7 +14,7 @@
     "@aws-cdk/assert": "1.100.0",
     "@types/aws-lambda": "^8.10.76",
     "@types/jest": "^26.0.23",
-    "@types/node": "15.0.2",
+    "@types/node": "15.6.0",
     "aws-cdk": "1.103.0",
     "aws-sdk": "^2.905.0",
     "jest": "^26.4.2",
