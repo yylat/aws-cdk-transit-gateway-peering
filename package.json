@@ -15,7 +15,7 @@
     "@types/aws-lambda": "^8.10.83",
     "@types/jest": "^27.0.1",
     "@types/node": "16.7.10",
-    "aws-cdk": "1.121.0",
+    "aws-cdk": "1.125.0",
     "aws-sdk": "^2.983.0",
     "jest": "^27.2.4",
     "ts-jest": "^27.0.5",
