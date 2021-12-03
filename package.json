@@ -28,6 +28,6 @@
     "@aws-cdk/aws-lambda": "1.106.1",
     "@aws-cdk/core": "1.106.1",
     "@aws-cdk/custom-resources": "1.106.1",
-    "source-map-support": "^0.5.20"
+    "source-map-support": "^0.5.21"
   }
 }
