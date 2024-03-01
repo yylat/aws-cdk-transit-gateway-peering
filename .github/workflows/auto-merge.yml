@@ -18,6 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: enable-auto-merge
     steps:
-    - uses: hmarr/auto-approve-action@v3
+    - uses: hmarr/auto-approve-action@v4
       with: 
         github-token: "${{ secrets.GITHUB_TOKEN }}"
