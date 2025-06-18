@@ -1,5 +1,5 @@
 import { expect as expectCDK, SynthUtils, haveResourceLike } from '@aws-cdk/assert';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { TgwPeeringStack } from '../lib/tgw-peering-stack';
 import { TgwRouteStack } from '../lib/tgw-route-stack';
 

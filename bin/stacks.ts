@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { NetworkStack } from '../lib/network-stack';
 import { InstanceStack } from '../lib/instance-stack';
 import { TgwPeeringStack } from '../lib/tgw-peering-stack';

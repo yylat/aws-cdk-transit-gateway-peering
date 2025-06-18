@@ -1,7 +1,8 @@
-import * as cdk from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as cr from '@aws-cdk/custom-resources';
-import * as iam from '@aws-cdk/aws-iam';
+import * as c from 'constructs';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as cr from 'aws-cdk-lib/custom-resources';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 export interface TgwPeeringStackProps extends cdk.StackProps {
     transitGatewayId: string
@@ -12,7 +13,7 @@ export class TgwPeeringStack extends cdk.Stack {
 
     readonly transitGatewayPeering: cdk.CustomResource
 
-    constructor(scope: cdk.Construct, id: string, props: TgwPeeringStackProps) {
+    constructor(scope: c.Construct, id: string, props: TgwPeeringStackProps) {
         super(scope, id, props);
 
         const provider = new cr.Provider(this, 'transit-gateway-peering-provider', {
@@ -70,7 +71,7 @@ export class TgwPeeringStack extends cdk.Stack {
         })
 
         return new lambda.Function(this, 'transit-gateway-peering-completion-handler', {
-            runtime: lambda.Runtime.NODEJS_14_X,
+            runtime: lambda.Runtime.NODEJS_22_X,
             code: lambda.Code.fromAsset(`${__dirname}/../dist/lib/lambda/is-complete`),
             handler: 'handler.isComplete',
             initialPolicy: [describeTgwPeeringAttachmentsPolicy, acceptTgwPeeringAttachmentPolicy]

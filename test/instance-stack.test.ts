@@ -1,6 +1,7 @@
 import { expect as expectCDK, SynthUtils, haveResourceLike } from '@aws-cdk/assert';
-import * as cdk from '@aws-cdk/core';
-import * as ec2 from '@aws-cdk/aws-ec2';
+import * as c from 'constructs';
+import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { InstanceStack } from '../lib/instance-stack';
 test('network stack', () => {
     const app = new cdk.App();
@@ -20,7 +21,7 @@ test('network stack', () => {
 
 class VpcStack extends cdk.Stack {
     readonly vpc: ec2.Vpc
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: c.Construct, id: string) {
         super(scope, id);
         this.vpc = new ec2.Vpc(this, 'vpc')
     }
