@@ -1,6 +1,7 @@
-import * as cdk from '@aws-cdk/core';
-import * as ec2 from '@aws-cdk/aws-ec2';
-import * as cr from '@aws-cdk/custom-resources';
+import * as c from 'constructs';
+import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as cr from 'aws-cdk-lib/custom-resources';
 
 export interface TgwRouteStackProps extends cdk.StackProps {
     destinationCidrBlock: string
@@ -11,7 +12,7 @@ export class TgwRouteStack extends cdk.Stack {
 
     readonly transitGatewayRoute: ec2.CfnTransitGatewayRoute
 
-    constructor(scope: cdk.Construct, id: string, props: TgwRouteStackProps) {
+    constructor(scope: c.Construct, id: string, props: TgwRouteStackProps) {
         super(scope, id, props);
 
         const parameters = {

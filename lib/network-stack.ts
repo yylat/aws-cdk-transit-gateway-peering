@@ -1,5 +1,6 @@
-import * as cdk from '@aws-cdk/core';
-import * as ec2 from '@aws-cdk/aws-ec2';
+import * as c from 'constructs';
+import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
 export interface NetworkStackProps extends cdk.StackProps {
     cidr: string
@@ -12,7 +13,7 @@ export class NetworkStack extends cdk.Stack {
     readonly transitGateway: ec2.CfnTransitGateway
     readonly transitGatewayAttachment: ec2.CfnTransitGatewayAttachment
 
-    constructor(scope: cdk.Construct, id: string, props: NetworkStackProps) {
+    constructor(scope: c.Construct, id: string, props: NetworkStackProps) {
         super(scope, id, props);
 
         this.vpc = new ec2.Vpc(this, 'vpc', {
@@ -22,7 +23,7 @@ export class NetworkStack extends cdk.Stack {
                 {
                     cidrMask: 27,
                     name: 'isolated',
-                    subnetType: ec2.SubnetType.ISOLATED
+                    subnetType: ec2.SubnetType.PRIVATE_ISOLATED
                 }
             ]
         })
